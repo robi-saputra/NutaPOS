@@ -78,9 +78,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # Debug Token
-      - name: Debug Token Scope
-        run: |
-          curl -H "Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases
+#      - name: Debug Token Scope
+#        run: |
+#          curl -H "Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases
 
       # Upload Debug APK
       - name: Upload Debug APK
@@ -90,6 +90,8 @@ jobs:
           asset_path: app/build/outputs/apk/debug/app-debug.apk
           asset_name: app-debug.apk
           asset_content_type: application/vnd.android.package-archive
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # Upload Release APK
       - name: Upload Release APK
@@ -99,4 +101,6 @@ jobs:
           asset_path: app/build/outputs/apk/release/app-release.apk
           asset_name: app-release.apk
           asset_content_type: application/vnd.android.package-archive
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
