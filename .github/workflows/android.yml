@@ -8,7 +8,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       # Checkout the code
@@ -47,12 +47,11 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      - name: Debug properties
-        run: echo "Store file ${{ secrets.ANDROID_KEYSTORE }}" && echo "Alias ${{ secrets.ANDROID_KEY_ALIAS }}"
-
       # Decode keystore
       - name: Decode keystore
-        run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > keystore-project.jks
+        run: |
+          echo "Store file ${{ secrets.ANDROID_KEYSTORE }}" && echo "Alias ${{ secrets.ANDROID_KEY_ALIAS }}"
+          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > keystore-project.jks
 
       # Build signed Release APK
       - name: Build signed release APK
@@ -76,18 +75,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      # Debug Token
-#      - name: Debug Token Scope
-#        run: |
-#          curl -H "Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases
+      # Rename App File
+      - name: Rename App File
+        run: |
+          VERSION=$(./gradlew -q printVersionName) # Replace with how you retrieve the version
+          REPO_NAME=$(basename ${{ github.repository }})
+          mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/${REPO_NAME}-${VERSION}-debug.apk
+          mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/${REPO_NAME}-${VERSION}-release.apk
 
       # Upload Debug APK
       - name: Upload Debug APK
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app/build/outputs/apk/debug/app-debug.apk
-          asset_name: app-debug.apk
+          asset_path: app/build/outputs/apk/debug/${{ github.repository }}-{{ version }}-debug.apk
+          asset_name: ${{ github.repository }}-{{ version }}-debug.apk
           asset_content_type: application/vnd.android.package-archive
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -97,9 +99,8 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app/build/outputs/apk/release/app-release.apk
-          asset_name: app-release.apk
+          asset_path: app/build/outputs/apk/release/${{ github.repository }}-{{ version }}-release.apk
+          asset_name: ${{ github.repository }}-{{ version }}-release.apk
           asset_content_type: application/vnd.android.package-archive
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
