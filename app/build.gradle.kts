@@ -17,6 +17,20 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            // Use environment variables or project properties for sensitive data
+            storeFile = (System.getenv("ANDROID_SIGNING_STORE_FILE") ?: project.findProperty("android.injected.signing.store.file") as String?)?.let {
+                file(
+                    it
+                )
+            }
+            storePassword = System.getenv("ANDROID_SIGNING_STORE_PASSWORD") ?: project.findProperty("android.injected.signing.store.password") as String?
+            keyAlias = System.getenv("ANDROID_SIGNING_KEY_ALIAS") ?: project.findProperty("android.injected.signing.key.alias") as String?
+            keyPassword = System.getenv("ANDROID_SIGNING_KEY_PASSWORD") ?: project.findProperty("android.injected.signing.key.password") as String?
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -24,8 +38,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // Link the signing configuration
+            signingConfig = signingConfigs.getByName("release")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
