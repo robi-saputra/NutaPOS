@@ -2,7 +2,6 @@ name: Android CI
 
 on:
   push:
-    branches: [ "master" ]
     tags:
       - 'v*' # Trigger the workflow only on tag pushes (e.g., v1.0.0)
 
