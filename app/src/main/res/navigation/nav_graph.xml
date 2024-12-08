@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentDaftarUangMasuk">
+
+    <fragment
+        android:id="@+id/fragmentDaftarUangMasuk"
+        android:name="robi.saputra.nutapos.ui.portrait.FragmentDaftarUangMasuk"
+        android:label="FragmentDaftarUangMasuk" >
+        <action
+            android:id="@+id/action_fragmentDaftarUangMasuk_to_fragmentInsertUangMasuk"
+            app:destination="@id/fragmentInsertUangMasuk" />
+        <action
+            android:id="@+id/action_fragmentDaftarUangMasuk_to_fragmentLandscapeDaftarUangMasuk"
+            app:destination="@id/fragmentLandscapeDaftarUangMasuk" />
+        <action
+            android:id="@+id/action_fragmentDaftarUangMasuk_to_fragmentEditUangMasuk"
+            app:destination="@id/fragmentEditUangMasuk" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentLandscapeDaftarUangMasuk"
+        android:name="robi.saputra.nutapos.ui.landscape.FragmentLandscapeDaftarUangMasuk"
+        android:label="FragmentLandscapeDaftarUangMasuk" >
+        <action
+            android:id="@+id/action_fragmentLandscapeDaftarUangMasuk_to_fragmentDaftarUangMasuk"
+            app:destination="@id/fragmentDaftarUangMasuk" />
+        <action
+            android:id="@+id/action_fragmentLandscapeDaftarUangMasuk_to_fragmentEditUangMasuk"
+            app:destination="@id/fragmentEditUangMasuk" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentInsertUangMasuk"
+        android:name="robi.saputra.nutapos.ui.FragmentInsertUangMasuk"
+        android:label="FragmentInsertUangMasuk" >
+        <action
+            android:id="@+id/action_fragmentInsertUangMasuk_to_fragmentDaftarUangMasuk"
+            app:destination="@id/fragmentDaftarUangMasuk" />
+        <action
+            android:id="@+id/action_fragmentInsertUangMasuk_to_fragmentLandscapeDaftarUangMasuk"
+            app:destination="@id/fragmentLandscapeDaftarUangMasuk" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentEditUangMasuk"
+        android:name="robi.saputra.nutapos.ui.FragmentEditUangMasuk"
+        android:label="FragmentEditUangMasuk" >
+        <action
+            android:id="@+id/action_fragmentEditUangMasuk_to_fragmentLandscapeDaftarUangMasuk"
+            app:destination="@id/fragmentLandscapeDaftarUangMasuk" />
+        <action
+            android:id="@+id/action_fragmentEditUangMasuk_to_fragmentDaftarUangMasuk"
+            app:destination="@id/fragmentDaftarUangMasuk" />
+    </fragment>
+</navigation>

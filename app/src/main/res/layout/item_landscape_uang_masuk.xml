@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="8dp"
+        android:gravity="center_vertical"
+        android:weightSum="10">
+
+        <TextView
+            style="@style/ItemTextNormal"
+            android:id="@+id/tv_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="00:00:00"
+            tools:layout_editor_absoluteX="18dp"
+            tools:layout_editor_absoluteY="29dp" />
+
+        <TextView
+            style="@style/ItemTextNormal"
+            android:id="@+id/tv_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Kasir Peringkat 1"
+            tools:layout_editor_absoluteX="101dp"
+            tools:layout_editor_absoluteY="27dp" />
+
+        <TextView
+            style="@style/ItemTextNormal"
+            android:id="@+id/tv_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Bos"
+            tools:layout_editor_absoluteX="185dp"
+            tools:layout_editor_absoluteY="27dp" />
+
+        <TextView
+            style="@style/ItemTextNormal"
+            android:id="@+id/tv_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Tambahan Modal"
+            tools:layout_editor_absoluteX="271dp"
+            tools:layout_editor_absoluteY="29dp" />
+
+        <TextView
+            style="@style/ItemTextNormal"
+            android:id="@+id/tv_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:text="Rp 100.000"
+            tools:layout_editor_absoluteX="335dp"
+            tools:layout_editor_absoluteY="30dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/grey"/>
+</LinearLayout>

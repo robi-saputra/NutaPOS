@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/broken_white">
+
+    <LinearLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="24dp">
+        <TextView
+            style="@style/TextBold"
+            android:id="@+id/tvDialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pilih Media"
+            android:layout_gravity="start|center_vertical"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/btn_close"
+            style="@style/ButtonSolidGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Close"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/ll_devider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        android:layout_below="@+id/ll_header"/>
+
+    <ImageView
+        android:id="@+id/view_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_devider"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/nuta_pos" />
+</RelativeLayout>

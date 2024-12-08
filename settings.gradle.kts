@@ -4,6 +4,8 @@ pluginManagement {
             content {
                 includeGroupByRegex("com\\.android.*")
                 includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("com\\.facebook.*")
+                includeGroupByRegex("com\\.github.*")
                 includeGroupByRegex("androidx.*")
             }
         }
