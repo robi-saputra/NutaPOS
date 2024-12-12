@@ -52,10 +52,10 @@ class FragmentInsertUangMasuk: BaseFragment<FragmentInputUangMasukBinding>() {
         setupToolbar()
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             binding.llOption.visibility = View.GONE
-            binding.buttonSimpan.visibility = View.VISIBLE
+            binding.btnSimpan.visibility = View.VISIBLE
         } else {
             binding.llOption.visibility = View.VISIBLE
-            binding.buttonSimpan.visibility = View.GONE
+            binding.btnSimpan.visibility = View.GONE
         }
 
         viewModel.insertTransactions.observe(viewLifecycleOwner) { result ->
@@ -123,6 +123,33 @@ class FragmentInsertUangMasuk: BaseFragment<FragmentInputUangMasukBinding>() {
                         .show()
                 }
             }
+
+            btnSimpan.setOnClickListener {
+                if (isValidate()) {
+                    val financeIn = FinanceIn(
+                        id = 0,
+                        date = getLocalDateTime().dateTimeToMilliseconds("dd-MM-yyyy HH:mm:ss"),
+                        amount = try {
+                            binding.etAmount.text.toString().toInt()
+                        } catch (e: NumberFormatException) {
+                            0
+                        },
+                        insertTo = binding.etInsertTo.text.toString(),
+                        insertFrom = binding.etInsertFrom.text.toString(),
+                        desc = binding.etDesc.text.toString(),
+                        type = binding.etType.text.toString(),
+                        image = base64Image
+                    )
+                    viewModel.insertTransaction(financeIn)
+                } else {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle("Warning")
+                        .setMessage("Form belum lengkap")
+                        .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                        .setIcon(R.drawable.ic_warning)
+                        .show()
+                }
+            }
         }
     }
 
@@ -131,8 +158,7 @@ class FragmentInsertUangMasuk: BaseFragment<FragmentInputUangMasukBinding>() {
                 !binding.etInsertTo.text.isNullOrEmpty() &&
                 !binding.etInsertFrom.text.isNullOrEmpty() &&
                 !binding.etDesc.text.isNullOrEmpty() &&
-                !binding.etType.text.isNullOrEmpty() &&
-                base64Image.isNotEmpty()
+                !binding.etType.text.isNullOrEmpty()
     }
 
     private fun setupToolbar() {

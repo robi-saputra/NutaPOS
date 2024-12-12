@@ -84,14 +84,14 @@ class FinanceViewModel(private val repository: FinanceRepository): ViewModel() {
     fun updateTransaction(financeIn: FinanceIn) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.updateTransaction(financeIn)
-            _insertTransactions.postValue(result)
+            _updateTransactions.postValue(result)
         }
     }
 
     fun deleteTransaction(financeIn: FinanceIn) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.deleteTransaction(financeIn)
-            _insertTransactions.postValue(result)
+            _deleteTransactions.postValue(result)
         }
     }
 

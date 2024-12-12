@@ -38,7 +38,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                 viewModel.insertDummyData() {
                     Log.d(TAG, "Dummy")
                     Handler(Looper.getMainLooper()).postDelayed({
-                        // Move to next activity after 2 seconds
                         startActivity(intent)
                         finish()
                     }, 3000)

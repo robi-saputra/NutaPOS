@@ -40,6 +40,7 @@ class FragmentDaftarUangMasuk: BaseFragment<FragmentDaftarUangMasukPortraitBindi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViewModel()
         adapter = GroupedFinanceAdapter()
         adapter.adapterCallback = object : GroupedFinanceAdapter.AdapterCallBack {
             override fun onEdit(result: FinanceIn) {
@@ -54,6 +55,7 @@ class FragmentDaftarUangMasuk: BaseFragment<FragmentDaftarUangMasukPortraitBindi
                     .setTitle("Warning")
                     .setMessage("Yakin akan menghapus data transaksi")
                     .setPositiveButton("OK") { dialog, _ -> viewModel.deleteTransaction(result) }
+                    .setNegativeButton("Kembali") { dialog, _ -> dialog.dismiss() }
                     .setIcon(R.drawable.ic_warning)
                     .show()
             }
@@ -65,15 +67,27 @@ class FragmentDaftarUangMasuk: BaseFragment<FragmentDaftarUangMasukPortraitBindi
 
         binding.rvPortraitContent.adapter = adapter
 
-        viewModel.groupedTransactions.observe(viewLifecycleOwner) { groupedData ->
-            adapter.setFinanceData(groupedData)
-        }
         viewModel.loadTransactions()
 
         binding.btnPortraitBuatTransaksi.setOnClickListener {
             findNavController().navigate(R.id.fragmentInsertUangMasuk)
         }
         binding.btnPortraitDateRange.setOnClickListener { showDateRangePicker() }
+    }
+
+    private fun initViewModel() {
+        viewModel.groupedTransactions.observe(viewLifecycleOwner) { groupedData ->
+            Log.d(TAG, "loadTransactions")
+            adapter.setFinanceData(groupedData)
+        }
+        viewModel.deleteTransactions.observe(viewLifecycleOwner) {
+            Log.d(TAG, "delete")
+            if (!formatedStartDate.isNullOrEmpty() && !formatedEndDate.isNullOrEmpty()) {
+                viewModel.loadRangeTransaction(formatedStartDate, formatedEndDate)
+            } else {
+                viewModel.loadTransactions()
+            }
+        }
     }
 
     private fun showDateRangePicker() {

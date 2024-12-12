@@ -57,13 +57,13 @@ class FragmentEditUangMasuk: BaseFragment<FragmentInputUangMasukBinding>() {
         Log.d(TAG, financeIn.toString())
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             binding.llOption.visibility = View.GONE
-            binding.buttonSimpan.visibility = View.VISIBLE
+            binding.btnSimpan.visibility = View.VISIBLE
         } else {
             binding.llOption.visibility = View.VISIBLE
-            binding.buttonSimpan.visibility = View.GONE
+            binding.btnSimpan.visibility = View.GONE
         }
 
-        viewModel.insertTransactions.observe(viewLifecycleOwner) { result ->
+        viewModel.updateTransactions.observe(viewLifecycleOwner) { result ->
             if (result) {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Success")
@@ -152,8 +152,7 @@ class FragmentEditUangMasuk: BaseFragment<FragmentInputUangMasukBinding>() {
                 !binding.etInsertTo.text.isNullOrEmpty() &&
                 !binding.etInsertFrom.text.isNullOrEmpty() &&
                 !binding.etDesc.text.isNullOrEmpty() &&
-                !binding.etType.text.isNullOrEmpty() &&
-                base64Image.isNotEmpty()
+                !binding.etType.text.isNullOrEmpty()
     }
 
     private fun setupToolbar() {

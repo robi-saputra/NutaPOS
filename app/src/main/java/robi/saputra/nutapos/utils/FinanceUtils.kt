@@ -8,19 +8,15 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import kotlinx.coroutines.CoroutineStart
-import java.io.ByteArrayInputStream
-import java.io.IOException
-import java.io.InputStream
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
-import kotlin.io.encoding.ExperimentalEncodingApi
 import android.util.Base64
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 fun String.formatString(): String {
     return this.padStart(12, ' ')

@@ -32,19 +32,29 @@ class FragmentLandscapeDaftarUangMasuk: BaseFragment<FragmentDaftarUangMasukLand
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViewModel()
         adapter = LandscapeGroupedFinanceAdapter()
         binding.rvLandscapeContent.adapter = adapter
-
-        viewModel.groupedTransactions.observe(viewLifecycleOwner) { groupedData ->
-            adapter.setFinanceData(groupedData)
-        }.also {
-            viewModel.loadTransactions()
-        }
 
         binding.btnLandscapeBuatTransaksi.setOnClickListener {
             findNavController().navigate(R.id.fragmentInsertUangMasuk)
         }
         binding.btnLandscapeDateRange.setOnClickListener { showDateRangePicker() }
+
+        viewModel.loadTransactions()
+    }
+
+    private fun initViewModel() {
+        viewModel.groupedTransactions.observe(viewLifecycleOwner) { groupedData ->
+            adapter.setFinanceData(groupedData)
+        }
+        viewModel.deleteTransactions.observe(viewLifecycleOwner) {
+            if (!formatedStartDate.isNullOrEmpty() && !formatedEndDate.isNullOrEmpty()) {
+                viewModel.loadRangeTransaction(formatedStartDate, formatedEndDate)
+            } else {
+                viewModel.loadTransactions()
+            }
+        }
     }
 
     private fun showDateRangePicker() {
